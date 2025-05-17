@@ -1,4 +1,4 @@
-# Hướng dẫn cài đặt và chạy dự án Node.js
+# Hướng dẫn cài đặt và chạy dự án
 
 ## 1. Cài đặt Node.js
 
