@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thống Kê Cửa Hàng và Đơn Đặt Hàng</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Báo Cáo Thống Kê Cửa Hàng và Đơn Đặt Hàng</h1>
+  <div>
+    <label for="questionSelect">Chọn câu hỏi:</label>
+    <select id="questionSelect">
+      <option value="">-- Chọn câu hỏi --</option>
+      <option value="1">1. Cửa hàng theo thành phố</option>
+      <option value="2">2. Đơn hàng theo khách hàng</option>
+      <option value="3">3. Cửa hàng bán mặt hàng cho khách</option>
+      <option value="4">4. Văn phòng đại diện lưu kho mặt hàng</option>
+      <option value="5">5. Đơn hàng và mặt hàng đi kèm</option>
+      <option value="6">6. Thành phố và bang của khách hàng</option>
+      <option value="7">7. Mức tồn kho mặt hàng theo thành phố</option>
+      <option value="8">8. Mặt hàng theo đơn đặt hàng</option>
+      <option value="9">9. Khách du lịch, khách đặt theo bưu điện</option>
+    </select>
+    <div id="queryInputs">
+
+  <!-- Câu 1 -->
+  <div class="query-input" id="query1" style="display:none;">
+    <label>Mã cửa hàng: <input type="text" id="input1_maCuaHang" placeholder="Nhập mã cửa hàng"/></label>
+    <button onclick="runQuery1()">Xem kết quả</button>
+  </div>
+
+  <!-- Câu 2 -->
+  <div class="query-input" id="query2" style="display:none;">
+    <label>Mã khách hàng: <input type="text" id="input2_maKH" placeholder="Nhập mã khách hàng"/></label>
+    <button onclick="runQuery2()">Xem kết quả</button>
+  </div>
+
+  <!-- Câu 3 -->
+  <div class="query-input" id="query3" style="display:none;">
+    <label>Mã khách hàng: <input type="text" id="input3_maKH" placeholder="Nhập mã khách hàng"/></label>
+    <button onclick="runQuery3()">Xem kết quả</button>
+  </div>
+
+  <!-- Câu 4 -->
+  <div class="query-input" id="query4" style="display:none;">
+    <label>Mã mặt hàng: <input type="number" id="input4_maMatHang" placeholder="Nhập mã mặt hàng"/></label>
+    <label>Số lượng tồn kho lớn hơn: <input type="number" id="input4_soLuong" placeholder="Số lượng tồn kho"/></label>
+    <button onclick="runQuery4()">Xem kết quả</button>
+  </div>
+
+  <!-- Câu 5 -->
+  <div class="query-input" id="query5" style="display:none;">
+    <label>Mã đơn đặt hàng: <input type="text" id="input5_maDon" placeholder="Nhập mã đơn đặt hàng"/></label>
+    <button onclick="runQuery5()">Xem kết quả</button>
+  </div>
+
+  <!-- Câu 6 -->
+  <div class="query-input" id="query6" style="display:none;">
+    <label>Mã khách hàng: <input type="text" id="input6_maKH" placeholder="Nhập mã khách hàng"/></label>
+    <button onclick="runQuery6()">Xem kết quả</button>
+  </div>
+
+  <!-- Câu 7 -->
+  <div class="query-input" id="query7" style="display:none;">
+    <label>Tên thành phố: <input type="text" id="input7_tenThanhPho" placeholder="Nhập tên thành phố"/></label>
+    <label>Mã mặt hàng: <input type="number" id="input7_maMatHang" placeholder="Nhập mã mặt hàng"/></label>
+    <button onclick="runQuery7()">Xem kết quả</button>
+  </div>
+
+  <!-- Câu 8 -->
+  <div class="query-input" id="query8" style="display:none;">
+    <label>Mã đơn đặt hàng: <input type="text" id="input8_maDon" placeholder="Nhập mã đơn đặt hàng"/></label>
+    <button onclick="runQuery8()">Xem kết quả</button>
+  </div>
+
+  <!-- Câu 9 -->
+<!-- Câu 9 -->
+<div class="query-input" id="query9" style="display:none;">
+  <label for="selectLoaiKH">Chọn loại khách hàng:</label>
+  <select id="selectLoaiKH">
+    <option value="">(select)</option>
+    <option value="DuLich">Du Lịch</option>
+    <option value="BuuDien">Bưu Diệnn</option>
+    <option value="CaHai">Cả Hai</option>
+    <option value="Khac">Khác</option>
+  </select>
+  <button onclick="runQuery9()">Thống kê loại khách hàng</button>
+</div>
+
+</div>
+
+<!-- Bảng hiển thị kết quả dùng chung cho tất cả -->
+<table id="queryResultTable" style="margin-top: 20px; width: 100%;">
+  <thead><tr id="queryResultHead"></tr></thead>
+  <tbody></tbody>
+</table>
+<div id="paginationQuery" style="margin-top: 10px;"></div>
+  </div>
+  <h2>Danh Sách khách hàng</h2>
+  <table id="khachHangTable">
+    <thead>
+      <tr id="tableHeadRow"></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div id="pagination" style="margin-top: 20px;"></div>
+  <h2>Xem Mặt Hàng Theo Cửa Hàng</h2>
+  <select id="selectCuaHang">
+    <option value="">-- Chọn cửa hàng --</option>
+  </select>
+
+  <table id="resultTable">
+    <thead>
+      <tr id="tableHeadRowResult"></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+    <h2>Biểu Đồ Phân Bổ</h2>
+  <select id="chartTypeSelect">
+    <option value="TenThanhPho">Theo Thành Phố</option>
+    <option value="Bang">Theo Miền</option>
+  </select>
+  <canvas id="pieChart" width="400" height="400"></canvas>
+  <script src="main.js"></script>
+</body>
+</html>
