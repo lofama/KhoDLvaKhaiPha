@@ -28,5 +28,5 @@ const config = {
         trustServerCertificate: true
     }
 };
-## 4. Chạy dự án
+## 5. Chạy dự án
 node server.js
