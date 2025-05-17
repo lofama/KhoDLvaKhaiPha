@@ -15,5 +15,18 @@ npm -v
 ## 3. Cài đặt phụ thuộc (Dependencies)
 Nếu dự án có file package.json, chạy lệnh sau trong thư mục dự án:
 npm install
+
+## 4. Thay đổi đường dẫn đến SQL Server trong app.js
+Thay đổi để dẫn đến nơi lưu các bảng Dim,Fact
+const config = {
+    user: 'sa',
+    password: '12345678',
+    server: 'DESKTOP-FMEL8VA',
+    database: 'dbdw',
+    options: {
+        encrypt: true,
+        trustServerCertificate: true
+    }
+};
 ## 4. Chạy dự án
 node server.js
